@@ -7,7 +7,7 @@ module.exports = {
     entry: path.resolve(__dirname, '../src/main.ts'),
     output: {
         path: path.resolve(__dirname, '../dist'),
-        filename: 'js/[name].bundle.js'
+        filename: 'public/js/[name].bundle.js'
     },
     resolve: {
         extensions: ['.js', '.vue', '.json', '.ts'],

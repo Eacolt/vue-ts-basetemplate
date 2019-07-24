@@ -1,5 +1,6 @@
 const webpackConfig = require('./webpack.config')
 const merge = require('webpack-merge')
+const webpack = require('webpack')
 const portfinder = require('portfinder');
 const path = require('path')
 module.exports = portfinder.getPortPromise().then((port) => {
@@ -30,12 +31,17 @@ module.exports = portfinder.getPortPromise().then((port) => {
                 ]
             }]
         },
+        plugins: [
+            new webpack.DefinePlugin({
+                'process.env.baseURL': JSON.stringify('.')
+            })
+        ],
         devServer: {
             host: 'localhost',
             port: port,
             open: true,
             hot: true,
-            contentBase: path.resolve(__dirname, '../dist')
+            contentBase: path.resolve(__dirname, '../public')
 
         }
     })

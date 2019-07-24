@@ -1,5 +1,6 @@
 const merge = require('webpack-merge')
 const path = require('path')
+const webpack = require('webpack')
 const webpackConfig = require('./webpack.config')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -7,6 +8,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const ImageminPlugin = require('imagemin-webpack-plugin').default
+
 module.exports = merge(webpackConfig, {
     mode: 'production',
     // devtool:'#source-map',
@@ -62,21 +64,25 @@ module.exports = merge(webpackConfig, {
 
     plugins: [
         new OptimizeCssPlugin(),
-        new MiniCssExtractPlugin({
-            filename: 'css/[name].bundle.css',
-            chunkFilename: 'css/[name].chunks.css'
+        new webpack.DefinePlugin({
+            'process.env.baseURL': JSON.stringify('../public')
         }),
-        // new CopyWebpackPlugin([{
-        //     from: path.resolve(__dirname, '../public/index.html'),
-        //     to: path.resolve(__dirname, '../dist')
-        // }]),
+        new MiniCssExtractPlugin({
+            filename: 'public/css/[name].bundle.css',
+            chunkFilename: 'public/css/[name].chunks.css'
+        }),
+        new CopyWebpackPlugin([{
+            from: path.resolve(__dirname, '../public/**'),
+            to: path.resolve(__dirname, '../dist'),
+            ignore: ['*.html']
+        }]),
         // new ImageminPlugin({
         //     pngquant:{
         //         quality:'95-100'
         //     }
         // }),
         new CleanWebpackPlugin({
-            cleanOnceBeforeBuildPatterns: ['**/*', '!img']
+            cleanOnceBeforeBuildPatterns: ['**/*']
         })
 
 
