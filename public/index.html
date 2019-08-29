@@ -4,10 +4,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <style>
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+            background: black;
+            width: 100%;
+            height: 100%;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
 </head>
 
 <body>
     <div id='root'></div>
+    <script type="text/javascript">
+        window.fontBase = 0;
+
+        function preload() {
+            window.addEventListener('resize', resize)
+            var ratio = 1920 / 1080;
+
+            function resize() {
+                var screenW = document.body.clientWidth;
+
+                var screenH = document.body.clientHeight;
+                console.log(screenW)
+
+                if (screenW / screenH > ratio) {
+                    document.documentElement.style.fontSize = (screenH / 1080) * 100 + 'px';
+                    window.fontBase = (screenH / 1080) * 100;
+                } else {
+                    document.documentElement.style.fontSize = (screenW / 1920) * 100 + 'px';
+                    window.fontBase = (screenW / 1920) * 100;
+                }
+
+            }
+            resize();
+
+        }
+        window.addEventListener('DOMContentLoaded', preload);
+    </script>
 </body>
 
 </html>

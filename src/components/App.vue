@@ -8,12 +8,12 @@
 
 <script lang="ts">
   import Vue from 'vue'
-  
   import {Component} from 'vue-property-decorator'
-  import './App.css'
  
+
   @Component
   export default class App extends Vue {
+	
      mystyle = {
  
 		 backgroundImage:'url("./img/high_bg.jpg")',
@@ -40,7 +40,13 @@
 	transform: translate(0,-50%);
 	top:50%;
 	background:black;
-}
  
+}
+.mypic{
+	position:absolute;
+	width:100%;
+	height:100%;
+	left:0;
+}
 </style>
 
